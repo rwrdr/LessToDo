@@ -1,0 +1,92 @@
+﻿<Page
+    x:Class="LessToDo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LessToDo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:valueconverter="using:LessToDo"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <valueconverter:ImageSetter x:Key="ImageSetter"/>
+        <valueconverter:DateColor x:Key="DateColor"/>
+    </Page.Resources>
+    
+    <Grid>
+        <Pivot x:Uid="Pivot" Title="LessToDo" x:Name="pivot" CommonNavigationTransitionInfo.IsStaggerElement="True">
+            <PivotItem
+                x:Uid="All"
+                Margin="0,14.5,0,0"
+                Header="All Tasks"
+                CommonNavigationTransitionInfo.IsStaggerElement="True">
+                <ListView 
+                    x:Name="ListView1" 
+                    ItemsSource="{Binding}"
+                    IsItemClickEnabled="True"
+                    ItemClick="GoToSingleTaskView"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,9.5" Orientation="Horizontal">
+                                <Image Source="{Binding UID, Converter={StaticResource ImageSetter}}"/>
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Title}"
+                                        TextWrapping="Wrap"
+                                        Style="{ThemeResource ListViewItemTextBlockStyle}"
+                                        Margin="0,0,19,0"/>
+                                    <TextBlock
+                                        x:Name="txtblockDate"
+                                        Text="{Binding Date}"
+                                        Foreground="{Binding Date, Converter={StaticResource DateColor}}"
+                                        Style="{ThemeResource ListViewItemTextBlockStyle}"
+                                        Margin="0,0,19,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+            <PivotItem
+                x:Uid="Priority"
+                Margin="0,14.5,0,0"
+                Header="Priority Tasks">
+                <ListView 
+                    x:Name="ListView2" 
+                    ItemsSource="{Binding}"
+                    IsItemClickEnabled="True"
+                    ItemClick="GoToSingleTaskView"
+                    ContinuumNavigationTransitionInfo.ExitElementContainer="True">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,9.5" Orientation="Horizontal">
+                                <Image Source="{Binding UID, Converter={StaticResource ImageSetter}}"/>
+                                <StackPanel>
+                                    <TextBlock
+                                        Text="{Binding Title}"
+                                        TextWrapping="Wrap"
+                                        Style="{ThemeResource ListViewItemTextBlockStyle}"
+                                        Margin="0,0,19,0"/>
+                                    <TextBlock
+                                        x:Name="txtblockDate"
+                                        Text="{Binding Date}"
+                                        Foreground="{Binding Date, Converter={StaticResource DateColor}}"
+                                        Style="{ThemeResource ListViewItemTextBlockStyle}"
+                                        Margin="0,0,19,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </PivotItem>
+        </Pivot>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="AddAppBarButton" x:Name="AddAppBarButton" Label="New Task" Click="AddAppBarButton_Click" Icon="Add" Margin="10,0,10,0"/>
+            <AppBarButton x:Uid="HideAppBarButton" x:Name="HideAppBarButton" Label="All" Click="HideAppBarButton_Click" Icon="AllApps" Margin="10,0,10,0"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
